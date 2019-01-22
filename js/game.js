@@ -99,7 +99,7 @@ var Game = {
     });
     this.fishLeft = this.fishLeft.filter(function (enemy) {
       return enemy.x <= this.canvas.width;
-    });
+    }.bind(this));
     this.fishRight = this.fishRight.filter(function (enemy) {
       return enemy.x >= -200;
     });

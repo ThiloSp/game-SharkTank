@@ -10,8 +10,8 @@ function SharkLeft(game) {
   this.img.src = "img/sharkLeft.png";
   
   // medidas de la imagen a representar en el canvas
-  this.w = 150; 
-  this.h = 60; 
+  this.w = 200; 
+  this.h = 80; 
   // número de imágenes diferentes
   this.img.frames = 2;
   this.img.frameIndex = 0;
@@ -41,7 +41,7 @@ SharkLeft.prototype.move = function() {
 };
 
 SharkLeft.prototype.animateImg = function() {
-  if (this.game.framesCounter % 4 === 0) {
+  if (this.game.framesCounter % 12 === 0) {
     this.img.frameIndex += 1;
 
     if (this.img.frameIndex > 1) this.img.frameIndex = 0;
@@ -61,8 +61,8 @@ function SharkRight(game) {
   this.img.src = "img/sharkRight.png";
   
   // medidas de la imagen a representar en el canvas
-  this.w = 150; 
-  this.h = 60; 
+  this.w = 200; 
+  this.h = 80; 
   // número de imágenes diferentes
   this.img.frames = 2;
   this.img.frameIndex = 0;
@@ -91,7 +91,7 @@ SharkRight.prototype.move = function() {
 };
 
 SharkRight.prototype.animateImg = function() {
-  if (this.game.framesCounter % 4 === 0) {
+  if (this.game.framesCounter % 12 === 0) {
     this.img.frameIndex += 1;
 
     if (this.img.frameIndex > 1) this.img.frameIndex = 0;
