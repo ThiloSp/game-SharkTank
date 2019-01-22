@@ -6,6 +6,8 @@ function Player(game) {
   this.x = this.game.canvas.width * 0.5 - this.w/2;
   this.y = this.game.canvas.height * 0.3;
   
+  this.surface = this.game.canvas.height/8
+
   this.img = new Image();
   this.img.src = "./img/dolphin.png";
   
@@ -14,8 +16,6 @@ function Player(game) {
   this.img.frames = 3;
   this.img.frameIndex = 0;
 
-
-  this.setListeners();
 };
 
 Player.prototype.draw = function() {
@@ -53,10 +53,16 @@ Player.prototype.move = function() {
 };
 
 Player.prototype.playerLimits = function(){
-  if (this.y <= 0) {
-    this.y = 0;
+  if (this.y < this.surface) {
+      this.y = this.surface;
+  } else if (this.y > (this.game.canvas.height - this.h)){
+      this.y = this.game.canvas.height - this.h;
+  } else if (this.x < 0) {
+      this.x = 0;
+  } else if (this.x > (this.game.canvas.width - this.w)){
+      this.x = this.game.canvas.width - this.w
   }
-}
+};
 
 Player.prototype.animateImg = function() {
   // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje
@@ -67,3 +73,9 @@ Player.prototype.animateImg = function() {
     if (this.img.frameIndex > 2) this.img.frameIndex = 0;
   }
 };
+
+Player.prototype.breath = function(){
+  if (this.y === this.surface) {
+    this.game.air = 15;
+  }
+}

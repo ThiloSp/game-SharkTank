@@ -4,7 +4,7 @@ function SharkLeft(game) {
   this.game = game;
 
   this.x = -150;
-  this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height - 50) + 50));
+  this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height - this.game.canvas.height/8) + this.game.canvas.height/8));
   
   this.img = new Image();
   this.img.src = "img/sharkLeft.png";
@@ -20,8 +20,7 @@ function SharkLeft(game) {
 };
 
 SharkLeft.prototype.draw = function() {
-  console.log(this.img.width)
-
+  
   this.game.ctx.drawImage(
     this.img,
     this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
@@ -55,7 +54,7 @@ function SharkRight(game) {
   this.game = game;
 
   this.x = this.game.canvas.width;
-  this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height - 50) + 50));
+  this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height - this.game.canvas.height/8) + this.game.canvas.height/8));
   
   this.img = new Image();
   this.img.src = "img/sharkRight.png";

@@ -16,14 +16,24 @@ var Game = {
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
 
-    this._setCanvasDimensions;
+    this._setCanvasDimensions; //borrar!
     this.fps = 60;
 
     this.reset();
+
+    this.intervalAir = setInterval(function () {
+      this.air--;
+
+      if (this.air === -1){
+        this.gameOver();
+      }
+
+    }.bind(this), 1000);
        
     this.interval = setInterval(function () {
       this.clear(); 
       this.framesCounter++;
+      
 
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
@@ -37,6 +47,9 @@ var Game = {
       this.moveAll();
       this.clearAll();
 
+      this.catchFishLeft();
+      this.catchFishRight();
+
       if (this.sharkBiteLeft() || this.sharkBiteRight()) {
         this.gameOver();
       }
@@ -45,6 +58,7 @@ var Game = {
 
   stop: function () {
     clearInterval(this.interval);
+    clearInterval(this.intervalAir);
   },
   gameOver: function () {
     this.stop();
@@ -68,8 +82,8 @@ var Game = {
           (enemy.y + enemy.h - 40) >= this.player.y
       );
     }.bind(this));
-   },
-   sharkBiteRight: function () {
+  },
+  sharkBiteRight: function () {
     return this.enemiesRight.some(function (enemy) {
       return (
         ((this.player.x + this.player.w) >= enemy.x + 20 &&
@@ -78,7 +92,30 @@ var Game = {
           (enemy.y + enemy.h - 40) >= this.player.y
       );
     }.bind(this));
-   },
+  },
+
+  catchFishLeft: function(){
+     this.fishLeft.forEach(function (fish, i) {
+      if ((this.player.x + this.player.w) >= fish.x &&
+          (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
+          this.player.y + this.player.h >= fish.y &&
+          (fish.y + fish.h) >= this.player.y) {
+            this.fishLeft.splice(i, 1);
+            this.score++;
+          }  
+    }.bind(this));
+  },
+  catchFishRight: function(){
+    this.fishRight.forEach(function (fish, i) {
+     if ((this.player.x + this.player.w) >= fish.x &&
+         (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
+         this.player.y + this.player.h >= fish.y &&
+         (fish.y + fish.h) >= this.player.y) {
+           this.fishRight.splice(i, 1);
+           this.score++;
+         }  
+   }.bind(this));
+ },
 
   reset: function () {
     this.background = new DrawBackground(this);
@@ -88,6 +125,10 @@ var Game = {
     this.enemiesRight = [];
     this.fishLeft = [];
     this.fishRight = [];
+    this.scoreBoard = ScoreBoard;
+    this.score = 0;
+    this.airBoard = AirBoard;
+    this.air = 10;
   
   },
   clearAll: function () {
@@ -108,6 +149,8 @@ var Game = {
   drawAll: function () {
     this.background.draw();
     this.player.draw();
+    this.drawScore();
+    this.drawAir();
     this.enemiesLeft.forEach(function (enemy) {
       enemy.draw();
     });
@@ -122,8 +165,10 @@ var Game = {
     });
   },
   moveAll: function () {
+    this.player.breath();
     this.player.animateImg();
     this.player.move();
+    this.player.setListeners();
     this.player.playerLimits();
     this.enemiesLeft.forEach(function (enemy) { enemy.move(); });
     this.enemiesRight.forEach(function (enemy) { enemy.move(); });
@@ -131,4 +176,10 @@ var Game = {
     this.fishRight.forEach(function (fish) { fish.move(); });
   },
 
+  drawScore: function () {
+    this.scoreBoard.update(this.score, this.ctx)
+  },
+  drawAir: function () {
+    this.airBoard.update(this.air, this.ctx)
+  },
 };
