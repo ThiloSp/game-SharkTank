@@ -13,6 +13,10 @@ var Game = {
   start: function (canvasSelector) {
     this.canvas = document.getElementById(canvasSelector);
     this.ctx = this.canvas.getContext("2d");
+    this.canvas.width = window.innerWidth
+    this.canvas.height = window.innerHeight
+
+    this._setCanvasDimensions;
     this.fps = 60;
 
     this.reset();
@@ -88,13 +92,13 @@ var Game = {
   },
   clearAll: function () {
     this.enemiesLeft = this.enemiesLeft.filter(function (enemy) {
-      return enemy.x <= 900;
-    });
+      return enemy.x <= this.canvas.width;
+    }.bind(this));
     this.enemiesRight = this.enemiesRight.filter(function (enemy) {
       return enemy.x >= -200;
     });
     this.fishLeft = this.fishLeft.filter(function (enemy) {
-      return enemy.x >= -200;
+      return enemy.x <= this.canvas.width;
     });
     this.fishRight = this.fishRight.filter(function (enemy) {
       return enemy.x >= -200;
@@ -118,7 +122,9 @@ var Game = {
     });
   },
   moveAll: function () {
+    this.player.animateImg();
     this.player.move();
+    this.player.playerLimits();
     this.enemiesLeft.forEach(function (enemy) { enemy.move(); });
     this.enemiesRight.forEach(function (enemy) { enemy.move(); });
     this.fishLeft.forEach(function (fish) { fish.move(); });

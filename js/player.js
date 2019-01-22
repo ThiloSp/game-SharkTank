@@ -1,15 +1,15 @@
 function Player(game) {
   this.game = game;
  
-  this.x = this.game.canvas.width * 0.3;
-  this.y = this.game.canvas.height * 0.5;
+  this.w = 150;
+  this.h = 65;
+  this.x = this.game.canvas.width * 0.5 - this.w/2;
+  this.y = this.game.canvas.height * 0.3;
   
   this.img = new Image();
   this.img.src = "./img/dolphin.png";
   
-  // medidas de la imagen a representar en el canvas
-  this.w = 150;
-  this.h = 65;
+ 
   // número de imágenes diferentes
   this.img.frames = 3;
   this.img.frameIndex = 0;
@@ -25,18 +25,11 @@ Player.prototype.draw = function() {
     0,
     Math.floor(this.img.width / this.img.frames),
     this.img.height,
-   /*  0,
-    0,
-    1456,
-    200, */
     this.x,
     this.y,
     this.w,
     this.h
   );
-  
-  this.animateImg();
-
 };
 
 Player.prototype.setListeners = function() {
@@ -54,11 +47,16 @@ Player.prototype.setListeners = function() {
 };
 
 Player.prototype.move = function() {
-   var gravity = 0.5;
-
-    this.y += gravity
-
+  var gravity = 0.5;
+  this.y += gravity;
+ 
 };
+
+Player.prototype.playerLimits = function(){
+  if (this.y <= 0) {
+    this.y = 0;
+  }
+}
 
 Player.prototype.animateImg = function() {
   // se va cambiando el frame. Cuanto mayor es el módulo, mas lento se mueve el personaje

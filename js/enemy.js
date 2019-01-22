@@ -20,6 +20,8 @@ function SharkLeft(game) {
 };
 
 SharkLeft.prototype.draw = function() {
+  console.log(this.img.width)
+
   this.game.ctx.drawImage(
     this.img,
     this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
@@ -42,7 +44,7 @@ SharkLeft.prototype.animateImg = function() {
   if (this.game.framesCounter % 4 === 0) {
     this.img.frameIndex += 1;
 
-    if (this.img.frameIndex > 2) this.img.frameIndex = 0;
+    if (this.img.frameIndex > 1) this.img.frameIndex = 0;
   }
 };
 
@@ -69,6 +71,7 @@ function SharkRight(game) {
 };
 
 SharkRight.prototype.draw = function() {
+
   this.game.ctx.drawImage(
     this.img,
     this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
@@ -91,6 +94,6 @@ SharkRight.prototype.animateImg = function() {
   if (this.game.framesCounter % 4 === 0) {
     this.img.frameIndex += 1;
 
-    if (this.img.frameIndex > 2) this.img.frameIndex = 0;
+    if (this.img.frameIndex > 1) this.img.frameIndex = 0;
   }
 };
