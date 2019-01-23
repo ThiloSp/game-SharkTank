@@ -16,6 +16,7 @@ var Game = {
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
 
+    this._setCanvasDimensions; //borrar!
     this.fps = 60;
 
     this.reset();
@@ -51,9 +52,7 @@ var Game = {
 
       if (this.sharkBiteLeft() || this.sharkBiteRight()) {
         this.gameOver();
-        this.drawGameOverTitle();
       }
-    
     }.bind(this), 1000 / this.fps);
     },
 
@@ -63,12 +62,6 @@ var Game = {
   },
   gameOver: function () {
     this.stop();
-  },
-
-  drawGameOverTitle: function () {
-    var textLength= 200;
-    this.ctx.font = '70px Arial';
-    this.ctx.fillText('Game Over', this.canvas.width/2-textLength, this.canvas.height/2);
   },
   clear: function () {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -108,7 +101,7 @@ var Game = {
 
   //todo: write DRY code dont repeat yourself
   //  catchFish("fishLeft")
-  catchFishLeft: function(){
+  catchFish: function(){
      this.fishLeft.forEach(function (fish, i) {
       if ((this.player.x + this.player.w) >= fish.x &&
           (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
@@ -180,7 +173,7 @@ var Game = {
     this.fishRight.forEach(function (fish) {
       fish.draw();
     });
-    if (this.air > 12) {
+    if (this.air > 13) {
       this.ovals.forEach(function (oval) {
         oval.draw();
     });
@@ -197,7 +190,7 @@ var Game = {
     this.enemiesRight.forEach(function (enemy) { enemy.move(); });
     this.fishLeft.forEach(function (fish) { fish.move(); });
     this.fishRight.forEach(function (fish) { fish.move(); });
-    if (this.air > 12){
+    if (this.air > 13){
     this.ovals.forEach(function(oval){ oval.move(this.player);}.bind(this));
     };
   },
