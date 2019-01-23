@@ -3,15 +3,14 @@
 function SharkLeft(game) {
   this.game = game;
 
+  this.w = 200; 
+  this.h = 80;
   this.x = -150;
-  this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height - this.game.canvas.height/8) + this.game.canvas.height/8));
+  this.y = this.game.canvas.height/8 + (Math.floor(Math.random() * ((this.game.canvas.height - 2*this.h)- this.game.canvas.height/8) + this.game.canvas.height/8));
   
   this.img = new Image();
   this.img.src = "img/sharkLeft.png";
-  
-  // medidas de la imagen a representar en el canvas
-  this.w = 200; 
-  this.h = 80; 
+   
   // número de imágenes diferentes
   this.img.frames = 2;
   this.img.frameIndex = 0;
@@ -53,15 +52,14 @@ SharkLeft.prototype.animateImg = function() {
 function SharkRight(game) {
   this.game = game;
 
+  this.w = 200; 
+  this.h = 80;
   this.x = this.game.canvas.width;
-  this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height - this.game.canvas.height/8) + this.game.canvas.height/8));
+  this.y =  this.game.canvas.height/8 + (Math.floor(Math.random() * ((this.game.canvas.height - 2*this.h) - this.game.canvas.height/8) + this.game.canvas.height/8));
   
   this.img = new Image();
   this.img.src = "img/sharkRight.png";
   
-  // medidas de la imagen a representar en el canvas
-  this.w = 200; 
-  this.h = 80; 
   // número de imágenes diferentes
   this.img.frames = 2;
   this.img.frameIndex = 0;

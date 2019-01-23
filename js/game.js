@@ -23,18 +23,15 @@ var Game = {
 
     this.intervalAir = setInterval(function () {
       this.air--;
-
       if (this.air === -1){
         this.gameOver();
       }
-
     }.bind(this), 1000);
        
     this.interval = setInterval(function () {
       this.clear(); 
       this.framesCounter++;
       
-
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
@@ -71,6 +68,7 @@ var Game = {
     this.enemiesRight.push(new SharkRight(this));
     this.fishLeft.push(new FishLeft(this));
     this.fishRight.push(new FishRight(this));
+    this.ovals.push(new Oval(this));
   },
 
   sharkBiteLeft: function () {
@@ -129,6 +127,7 @@ var Game = {
     this.score = 0;
     this.airBoard = AirBoard;
     this.air = 10;
+    this.ovals = [];
   
   },
   clearAll: function () {
@@ -144,11 +143,13 @@ var Game = {
     this.fishRight = this.fishRight.filter(function (enemy) {
       return enemy.x >= -200;
     });
+    if (this.ovals.length > 1){
+       this.ovals.shift()
+    };
   },
 
   drawAll: function () {
     this.background.draw();
-    this.player.draw();
     this.drawScore();
     this.drawAir();
     this.enemiesLeft.forEach(function (enemy) {
@@ -163,6 +164,12 @@ var Game = {
     this.fishRight.forEach(function (fish) {
       fish.draw();
     });
+    if (this.air > 12) {
+      this.ovals.forEach(function (oval) {
+        oval.draw();
+    });
+       }  
+    this.player.draw();  
   },
   moveAll: function () {
     this.player.breath();
@@ -174,6 +181,9 @@ var Game = {
     this.enemiesRight.forEach(function (enemy) { enemy.move(); });
     this.fishLeft.forEach(function (fish) { fish.move(); });
     this.fishRight.forEach(function (fish) { fish.move(); });
+    if (this.air > 12){
+    this.ovals.forEach(function(oval){ oval.move(this.player);}.bind(this));
+    };
   },
 
   drawScore: function () {
