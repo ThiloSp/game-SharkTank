@@ -46,7 +46,7 @@ var Game = {
 
     this.drawAll(); 
     this.moveAll();
-     if(this.score >= 2 && this.score < 10){
+     if(this.score >= 3 && this.score < 15){
        this.orca.draw();
        this.orca.move(this.player);
      };  
@@ -131,8 +131,10 @@ var Game = {
   //todo: write DRY code dont repeat yourself
   //  catchFish("fishLeft")
   catchFishLeft: function(){
+     var xoff = 20;
+     var yoff = 20;
      this.fishLeft.forEach(function (fish, i) {
-      if ((this.player.x + this.player.w) >= fish.x+20 &&
+      if ((this.player.x + this.player.w) >= fish.x+xoff &&
           (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
           this.player.y + this.player.h >= fish.y &&
           (fish.y + fish.h) >= this.player.y) {
@@ -143,8 +145,10 @@ var Game = {
     }.bind(this));
   },
   catchFishRight: function(){
+    var xoff = 20;
+    var yoff = 20;
     this.fishRight.forEach(function (fish, i) {
-     if ((this.player.x + this.player.w) >= fish.x+20 &&
+     if ((this.player.x + this.player.w) >= fish.x+xoff &&
          (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
          this.player.y + this.player.h >= fish.y &&
          (fish.y + fish.h) >= this.player.y) {
@@ -167,7 +171,7 @@ var Game = {
     this.scoreBoard = ScoreBoard;
     this.score = 0;
     this.airBoard = AirBoard;
-    this.air = 210;
+    this.air = 10;
     this.ovals = [];
     this.breathSound = new Audio ("audio/breath.mp3");
     this.gameOverSound = new Audio ("audio/gameOver.mp3");

@@ -1,8 +1,8 @@
 function Orca (game) {
   this.game = game;
 
-  this.w = 300; 
-  this.h = 150;
+  this.w = 400; 
+  this.h = this.w/2;
   this.y = this.game.canvas.height/8 + (Math.floor(Math.random() * ((this.game.canvas.height - 2*this.h)- this.game.canvas.height/8) + this.game.canvas.height/8));
   this.x = -this.w;
   this.img = new Image();
@@ -11,7 +11,7 @@ function Orca (game) {
   this.img.frames = 3;
   this.img.frameIndex = 0;
 
-  this.dx = 0.5;
+  this.dx = 1.5;
 };
 
 Orca.prototype.draw = function() {

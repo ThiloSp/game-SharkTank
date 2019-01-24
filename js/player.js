@@ -41,9 +41,9 @@ Player.prototype.setListeners = function() {
     } else if (event.keyCode === this.game.keys.ArrowDown){
       this.vy = 2;
     } else if (event.keyCode === this.game.keys.ArrowRight){
-      this.vx = 2;
+      this.vx = 3;
     } else if (event.keyCode === this.game.keys.ArrowLeft) {
-      this.vx = -2;
+      this.vx = -3;
     };
   }.bind(this);
 };
@@ -80,6 +80,6 @@ Player.prototype.animateImg = function() {
 
 Player.prototype.breath = function(){
   if (this.y === this.surface) {
-    this.game.air = 15;
+    this.game.air = 20;
   }
 }
