@@ -54,5 +54,6 @@ Oval.prototype.draw = function () {
 Oval.prototype.move = function (player){
   if (player.y === player.surface){
     this.centerX = player.x + 2*player.w/3
+    this.game.breathSound.play();
   }
 };

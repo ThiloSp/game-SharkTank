@@ -20,6 +20,7 @@ var Game = {
 
     this.reset();
 
+       
     this.intervalAir = setInterval(function () {
       this.air--;
       if (this.air === -1){
@@ -33,14 +34,23 @@ var Game = {
       
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
-      }
+      };
 
       if (this.framesCounter % 300 === 0) {
         this.generateAll();
-      }
+      };
+    //  if (this.score != 0 && this.showOrca && this.framesCounter % this.orcaFrq == 0) {
+    //    this.generateOrca();
+    //    this.showOrca = false;
+    //  }
 
-      this.drawAll(); 
-      this.moveAll();
+    this.drawAll(); 
+    this.moveAll();
+     if(this.score >= 2 && this.score < 10){
+       this.orca.draw();
+       this.orca.move(this.player);
+     };  
+                
       this.clearAll();
 
       //todo: consider refactoring through code unification
@@ -48,21 +58,22 @@ var Game = {
 
       this.catchFishLeft();
       this.catchFishRight();
-
-      if (this.sharkBiteLeft() || this.sharkBiteRight()) {
+      
+      if (this.sharkBiteLeft() || this.sharkBiteRight() || this.orcaBite()) {
         this.gameOver();
-        this.drawGameOverTitle();
       }
     
     }.bind(this), 1000 / this.fps);
-    },
-
+  },
+    
   stop: function () {
     clearInterval(this.interval);
     clearInterval(this.intervalAir);
   },
   gameOver: function () {
     this.stop();
+    this.gameOverSound.play();
+    this.drawGameOverTitle();
   },
 
   drawGameOverTitle: function () {
@@ -79,8 +90,11 @@ var Game = {
     this.fishLeft.push(new FishLeft(this));
     this.fishRight.push(new FishRight(this));
     this.ovals.push(new Oval(this));
+      },
+  generateOrca: function (){
+    this.orcas.push(new Orca(this));
   },
-
+  
   //todo: consider unifying repeated code
   sharkBiteLeft: function () {
     return this.enemiesLeft.some(function (enemy) {
@@ -105,28 +119,38 @@ var Game = {
     }.bind(this));
   },
 
+  orcaBite: function () {
+    return ((this.player.x + this.player.w) >= this.orca.x+(this.orca.w/3) &&
+    this.player.x < (this.orca.x + this.orca.w - 20) &&
+    this.player.y + this.player.h >= this.orca.y + 40 &&
+    (this.orca.y + this.orca.h - 40) >= this.player.y);
+  },
+
+
 
   //todo: write DRY code dont repeat yourself
   //  catchFish("fishLeft")
   catchFishLeft: function(){
      this.fishLeft.forEach(function (fish, i) {
-      if ((this.player.x + this.player.w) >= fish.x &&
+      if ((this.player.x + this.player.w) >= fish.x+20 &&
           (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
           this.player.y + this.player.h >= fish.y &&
           (fish.y + fish.h) >= this.player.y) {
             this.fishLeft.splice(i, 1);
             this.score++;
+            this.fishBiteSound.play();
           }  
     }.bind(this));
   },
   catchFishRight: function(){
     this.fishRight.forEach(function (fish, i) {
-     if ((this.player.x + this.player.w) >= fish.x &&
+     if ((this.player.x + this.player.w) >= fish.x+20 &&
          (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
          this.player.y + this.player.h >= fish.y &&
          (fish.y + fish.h) >= this.player.y) {
            this.fishRight.splice(i, 1);
            this.score++;
+           this.fishBiteSound.play();
          }  
    }.bind(this));
  },
@@ -134,6 +158,7 @@ var Game = {
   reset: function () {
     this.background = new DrawBackground(this);
     this.player = new Player(this);
+    this.orca = new Orca (this)
     this.framesCounter = 0;
     this.enemiesLeft = [];
     this.enemiesRight = [];
@@ -142,9 +167,12 @@ var Game = {
     this.scoreBoard = ScoreBoard;
     this.score = 0;
     this.airBoard = AirBoard;
-    this.air = 10;
+    this.air = 210;
     this.ovals = [];
-  
+    this.breathSound = new Audio ("audio/breath.mp3");
+    this.gameOverSound = new Audio ("audio/gameOver.mp3");
+    this.fishBiteSound = new Audio ("audio/fishbite.mp3")
+     
   },
   clearAll: function () {
     this.enemiesLeft = this.enemiesLeft.filter(function (enemy) {
@@ -183,9 +211,9 @@ var Game = {
     if (this.air > 12) {
       this.ovals.forEach(function (oval) {
         oval.draw();
-    });
-       }  
-    this.player.draw();  
+      });
+    }; 
+    this.player.draw();
   },
   moveAll: function () {
     this.player.breath();

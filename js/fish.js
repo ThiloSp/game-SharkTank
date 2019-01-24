@@ -29,7 +29,7 @@ Fish.prototype.animateImg = function() {
   if (this.game.framesCounter % 4 === 0) {
     this.img.frameIndex += 1;
 
-    if (this.img.frameIndex > 2) this.img.frameIndex = 0;
+    if (this.img.frameIndex > 7) this.img.frameIndex = 0;
   }
 };
 

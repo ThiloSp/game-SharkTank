@@ -10,6 +10,6 @@ var AirBoard = {
   update: function (air, ctx) {
     ctx.font = "30px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("Air: "+Math.floor(air)+ " sec", 30, 70);
+    ctx.fillText("Breath: "+Math.floor(air)+ " s", 30, 70);
 }
 }
