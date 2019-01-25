@@ -2,7 +2,7 @@ function Oval (game) {
   this.game = game;
   this.centerX  
   this.centerY = this.game.canvas.height/8 
-  this.radius = 30;
+  this.radiusx = 30;
   this.radiusY= 15;
   this.radius1 = 15;
   this.radiusY1 = 7;
@@ -13,39 +13,40 @@ function Oval (game) {
 
 Oval.prototype.draw = function () {
   this.transparency -= 0.01;
-  this.radius +=1
+  this.radiusx +=1
   this.radiusY += 0.5
   this.radius1 += 1;
   this.radiusY1 += 0.5;
   this.radius2 += 1;
   this.radiusY2 += 0.5;
   
-  if (this.radius < 100) {
+  if (this.radiusx < 100) {
   this.game.ctx.beginPath();
 /*            ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle [, anticlockwise]); */
-  this.game.ctx.ellipse(this.centerX, this.centerY, this.radius, this.radiusY, 0, 0, 2 * Math.PI);
+  this.game.ctx.ellipse(this.centerX, this.centerY, this.radiusx, this.radiusY, 0, 0, 2 * Math.PI);
   this.game.ctx.fillStyle = 'rgba(255, 255, 255, '+this.transparency+')';
   this.game.ctx.fill();
+  this.game.ctx.save();
   this.game.ctx.lineWidth = 1;
   this.game.ctx.strokeStyle = 'rgba(255, 255, 255,'+this.transparency+')';
+  this.game.ctx.save();
   this.game.ctx.stroke();
 
   this.game.ctx.beginPath();
 /*            ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle [, anticlockwise]); */
-  this.game.ctx.ellipse(this.centerX, this.centerY, this.radius1, this.radiusY1, 0, 0, 2 * Math.PI);
+  this.game.ctx.ellipse(this.centerX, this.centerY, this.radiusx/1.5, this.radiusY/1.5, 0, 0, 2 * Math.PI);
   this.game.ctx.fillStyle = 'rgba(255, 255, 255,'+this.transparency+')';
   this.game.ctx.fill();
-  this.game.ctx.lineWidth = 1;
-  this.game.ctx.strokeStyle = 'rgba(255, 255, 255, '+this.transparency+')';
+  this.game.ctx.restore();
+  this.game.ctx.save();
   this.game.ctx.stroke();
 
   this.game.ctx.beginPath();
   /*            ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle [, anticlockwise]); */
-  this.game.ctx.ellipse(this.centerX, this.centerY, this.radius2, this.radiusY2, 0, 0, 2 * Math.PI);
+  this.game.ctx.ellipse(this.centerX, this.centerY, this.radiusx/3, this.radiusY/3, 0, 0, 2 * Math.PI);
   this.game.ctx.fillStyle = 'rgba(255, 255, 255,'+this.transparency+')';
   this.game.ctx.fill();
-  this.game.ctx.lineWidth = 1;
-  this.game.ctx.strokeStyle = 'rgba(255, 255, 255, '+this.transparency+')';
+  this.game.ctx.restore();
   this.game.ctx.stroke();
 
   };

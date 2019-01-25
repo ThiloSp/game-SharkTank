@@ -4,7 +4,7 @@ function Player(game) {
   this.w = 150;
   this.h = 65;
   this.x = this.game.canvas.width * 0.5 - this.w/2;
-  this.y = this.game.canvas.height * 0.3;
+  this.y = this.game.canvas.height * 0.7;
   this.vx = 0;
   this.vy = 0;
   
@@ -37,13 +37,13 @@ Player.prototype.draw = function() {
 Player.prototype.setListeners = function() {
   document.onkeydown = function(event) {
     if (event.keyCode === this.game.keys.ArrowUp) {
-      this.vy = -2;
+      this.vy = -6;
     } else if (event.keyCode === this.game.keys.ArrowDown){
-      this.vy = 2;
+      this.vy = 6;
     } else if (event.keyCode === this.game.keys.ArrowRight){
-      this.vx = 3;
+      this.vx = 6;
     } else if (event.keyCode === this.game.keys.ArrowLeft) {
-      this.vx = -3;
+      this.vx = -6;
     };
   }.bind(this);
 };
@@ -51,8 +51,8 @@ Player.prototype.setListeners = function() {
 Player.prototype.move = function() {
   var gravity = 0.01;
   this.vy += gravity
-  this.y += this.vy;
-  this.x += this.vx
+  this.y += this.vy/2;
+  this.x += this.vx/2;
  
 };
 

@@ -28,7 +28,7 @@ Shark.prototype.draw = function() {
 };
 
 Shark.prototype.animateImg = function() {
-  if (this.game.framesCounter % 12 === 0) {
+  if (this.game.framesCounter % 18 === 0) {
     this.img.frameIndex += 1;
 
     if (this.img.frameIndex > 1) this.img.frameIndex = 0;

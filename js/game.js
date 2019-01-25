@@ -19,6 +19,7 @@ var Game = {
     this.fps = 60;
 
     this.reset();
+    this.musicSound.play();
 
        
     this.intervalAir = setInterval(function () {
@@ -39,16 +40,16 @@ var Game = {
       if (this.framesCounter % 300 === 0) {
         this.generateAll();
       };
-    //  if (this.score != 0 && this.showOrca && this.framesCounter % this.orcaFrq == 0) {
-    //    this.generateOrca();
-    //    this.showOrca = false;
-    //  }
-
+   
     this.drawAll(); 
     this.moveAll();
      if(this.score >= 3 && this.score < 15){
        this.orca.draw();
-       this.orca.move(this.player);
+       this.musicSound.pause();
+       this.orcaSound.play();
+       if (this.score >= 4){
+       this.orca.moveStraight();
+       } else { this.orca.moveFollow(this.player)}
      };  
                 
       this.clearAll();
@@ -72,6 +73,8 @@ var Game = {
   },
   gameOver: function () {
     this.stop();
+    this.orcaSound.pause();
+    this.musicSound.pause();
     this.gameOverSound.play();
     this.drawGameOverTitle();
   },
@@ -120,10 +123,12 @@ var Game = {
   },
 
   orcaBite: function () {
+    var xoff = 20;
+    var yoff = 20;
     return ((this.player.x + this.player.w) >= this.orca.x+(this.orca.w/3) &&
-    this.player.x < (this.orca.x + this.orca.w - 20) &&
-    this.player.y + this.player.h >= this.orca.y + 40 &&
-    (this.orca.y + this.orca.h - 40) >= this.player.y);
+    this.player.x < (this.orca.x + this.orca.w - xoff) &&
+    this.player.y + this.player.h >= this.orca.y + 2*yoff &&
+    (this.orca.y + this.orca.h) >= this.player.y + yoff);
   },
 
 
@@ -171,11 +176,13 @@ var Game = {
     this.scoreBoard = ScoreBoard;
     this.score = 0;
     this.airBoard = AirBoard;
-    this.air = 10;
+    this.air = 20;
     this.ovals = [];
     this.breathSound = new Audio ("audio/breath.mp3");
     this.gameOverSound = new Audio ("audio/gameOver.mp3");
-    this.fishBiteSound = new Audio ("audio/fishbite.mp3")
+    this.fishBiteSound = new Audio ("audio/fishbite.mp3");
+    this.orcaSound = new Audio ("audio/orca.mp3")
+    this.musicSound = new Audio ("audio/music.mp3")
      
   },
   clearAll: function () {

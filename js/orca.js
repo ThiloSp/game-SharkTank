@@ -11,7 +11,7 @@ function Orca (game) {
   this.img.frames = 3;
   this.img.frameIndex = 0;
 
-  this.dx = 1.5;
+  this.dx = 1;
 };
 
 Orca.prototype.draw = function() {
@@ -37,11 +37,15 @@ Orca.prototype.animateImg = function() {
     if (this.img.frameIndex > 2) this.img.frameIndex = 0;
   }
 };
-// Orca.prototype.move = function() {
-//   this.x += this.dx;
-// };
+Orca.prototype.moveStraight = function() {
+  this.x += this.dx;
+  if (this.x > this.game.canvas.width + this.w) {
+    this.game.orcaSound.pause();
+    this.game.musicSound.play();
+  }
+};
 
-Orca.prototype.move = function (player){
+Orca.prototype.moveFollow = function (player){
     if (player.y > this.y) {
     this.y += this.dx;
   }  if (player.y < this.y) {
