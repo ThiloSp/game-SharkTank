@@ -77,9 +77,9 @@ var Game = {
   },
 
   drawGameOverTitle: function () {
-    var textLength= 200;
+    var textLength= 400;
     this.ctx.font = '70px Arial';
-    this.ctx.fillText('Game Over', this.canvas.width/2-textLength, this.canvas.height/2);
+    this.ctx.fillText('Game Over - Fish: '+this.score, this.canvas.width/2-textLength, this.canvas.height/2);
   },
 
   clear: function () {
