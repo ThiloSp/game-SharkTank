@@ -42,6 +42,7 @@ Orca.prototype.moveStraight = function() {
   if (this.x > this.game.canvas.width + this.w) {
     this.game.orcaSound.pause();
     this.game.musicSound.play();
+    
   }
 };
 
