@@ -81,6 +81,7 @@ var Game = {
     this.ctx.font = '70px Arial';
     this.ctx.fillText('Game Over', this.canvas.width/2-textLength, this.canvas.height/2);
   },
+
   clear: function () {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
@@ -127,8 +128,6 @@ var Game = {
 
 
 
-  //todo: write DRY code dont repeat yourself
-  //  catchFish("fishLeft")
   catchFishLeft: function(){
      var xoff = 20;
      this.fishLeft.forEach(function (fish, i) {
