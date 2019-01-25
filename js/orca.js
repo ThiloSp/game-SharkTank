@@ -7,7 +7,7 @@ function Orca (game) {
   this.x = -this.w;
   this.img = new Image();
   this.img.src = "img/orcaFirstLine.png";
-  // número de imágenes diferentes
+  // number of pics
   this.img.frames = 3;
   this.img.frameIndex = 0;
 
@@ -39,10 +39,10 @@ Orca.prototype.animateImg = function() {
 };
 Orca.prototype.moveStraight = function() {
   this.x += this.dx;
-  if (this.x > this.game.canvas.width + this.w) {
+  if (this.x > this.game.canvas.width + this.w/2) {
     this.game.orcaSound.pause();
     this.game.musicSound.play();
-    
+
   }
 };
 

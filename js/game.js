@@ -43,19 +43,16 @@ var Game = {
    
     this.drawAll(); 
     this.moveAll();
-     if(this.score >= 3 && this.score < 15){
+     if(this.score >= 4 && this.score < 15){
        this.orca.draw();
        this.musicSound.pause();
        this.orcaSound.play();
-       if (this.score >= 4){
+       if (this.score >= 5){
        this.orca.moveStraight();
        } else { this.orca.moveFollow(this.player)}
      };  
                 
       this.clearAll();
-
-      //todo: consider refactoring through code unification
-      //this.catchFish("left")
 
       this.catchFishLeft();
       this.catchFishRight();
@@ -93,12 +90,11 @@ var Game = {
     this.fishLeft.push(new FishLeft(this));
     this.fishRight.push(new FishRight(this));
     this.ovals.push(new Oval(this));
-      },
+  },
   generateOrca: function (){
     this.orcas.push(new Orca(this));
   },
   
-  //todo: consider unifying repeated code
   sharkBiteLeft: function () {
     return this.enemiesLeft.some(function (enemy) {
       return (
@@ -109,9 +105,7 @@ var Game = {
       );
     }.bind(this));
   },
-
-  //todo: replace hardcoded values with meaningful variables
-  sharkBiteRight: function (/* xoffset, yoffset */) {
+  sharkBiteRight: function () {
     return this.enemiesRight.some(function (enemy) {
       return (
         ((this.player.x + this.player.w) >= enemy.x + 20 &&
@@ -123,11 +117,11 @@ var Game = {
   },
 
   orcaBite: function () {
-    var xoff = 20;
-    var yoff = 20;
+    var xoff = 60;
+    var yoff = 60;
     return ((this.player.x + this.player.w) >= this.orca.x+(this.orca.w/3) &&
     this.player.x < (this.orca.x + this.orca.w - xoff) &&
-    this.player.y + this.player.h >= this.orca.y + 2*yoff &&
+    this.player.y + this.player.h >= this.orca.y + yoff &&
     (this.orca.y + this.orca.h) >= this.player.y + yoff);
   },
 
@@ -137,7 +131,6 @@ var Game = {
   //  catchFish("fishLeft")
   catchFishLeft: function(){
      var xoff = 20;
-     var yoff = 20;
      this.fishLeft.forEach(function (fish, i) {
       if ((this.player.x + this.player.w) >= fish.x+xoff &&
           (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
@@ -151,7 +144,6 @@ var Game = {
   },
   catchFishRight: function(){
     var xoff = 20;
-    var yoff = 20;
     this.fishRight.forEach(function (fish, i) {
      if ((this.player.x + this.player.w) >= fish.x+xoff &&
          (this.player.x + 2*this.player.w/3) < (fish.x + fish.w) &&
@@ -183,6 +175,7 @@ var Game = {
     this.fishBiteSound = new Audio ("audio/fishbite.mp3");
     this.orcaSound = new Audio ("audio/orca.mp3")
     this.musicSound = new Audio ("audio/music.mp3")
+    this.musicSound.volume = .5;
      
   },
   clearAll: function () {

@@ -5,7 +5,7 @@ function Shark(game) {
   this.h = 80;
   this.y = this.game.canvas.height/8 + (Math.floor(Math.random() * ((this.game.canvas.height - 2*this.h)- this.game.canvas.height/8) + this.game.canvas.height/8));
   this.img = new Image();
-  // número de imágenes diferentes
+  // number of pics
   this.img.frames = 2;
   this.img.frameIndex = 0;
 

@@ -2,10 +2,10 @@ function Fish(game) {
   this.game = game;
   this.y = this.game.canvas.height - (Math.floor(Math.random() * (this.game.canvas.height/2 - 50) + 50));
   this.img = new Image();
-  // medidas de la imagen a representar en el canvas
+  
   this.w = 30; 
   this.h = 15; 
-  // número de imágenes diferentes
+  // number of pics
   this.img.frames = 8;
   this.img.frameIndex = 0;
 

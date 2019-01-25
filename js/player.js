@@ -14,7 +14,7 @@ function Player(game) {
   this.img.src = "./img/dolphin.png";
   
  
-  // número de imágenes diferentes
+  // number of pics
   this.img.frames = 3;
   this.img.frameIndex = 0;
 
