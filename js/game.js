@@ -49,12 +49,12 @@ var Game = {
     // var fishBeforeOrcaLeaves = 30
     // var drawOrcaUntilThisScore = 40
     //  if(this.score >= fishBeforeOrcaComes && this.score < drawOrcaUntilThisScore){
-      if (this.orcaTime > 10){
+      if (this.orcaTime > 180){
        this.orca.draw();
        this.musicSound.pause();
        this.orcaSound.play();
       //  if (this.score >= fishBeforeOrcaLeaves){
-      if (this.orcaTime > 20){
+      if (this.orcaTime > 280){
        this.orca.moveStraight();
        } else { this.orca.moveFollow(this.player)}
      };  
