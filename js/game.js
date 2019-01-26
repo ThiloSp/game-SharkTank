@@ -43,11 +43,14 @@ var Game = {
    
     this.drawAll(); 
     this.moveAll();
-     if(this.score >= 4 && this.score < 15){
+    var fishBeforeOrcaComes = 20
+    var fishBeforeOrcaLeaves = 30
+    var drawOrcaUntilThisScore = 40
+     if(this.score >= fishBeforeOrcaComes && this.score < drawOrcaUntilThisScore){
        this.orca.draw();
        this.musicSound.pause();
        this.orcaSound.play();
-       if (this.score >= 5){
+       if (this.score >= fishBeforeOrcaLeaves){
        this.orca.moveStraight();
        } else { this.orca.moveFollow(this.player)}
      };  
