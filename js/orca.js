@@ -40,9 +40,7 @@ Orca.prototype.animateImg = function() {
 Orca.prototype.moveStraight = function() {
   this.x += this.dx;
   if (this.x > this.game.canvas.width + this.w/2) {
-    this.game.orcaSound.pause();
-    this.game.musicSound.play();
-
+    this.game.drawYouWin();
   }
 };
 

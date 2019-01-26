@@ -27,6 +27,8 @@ var Game = {
       if (this.air === -1){
         this.gameOver();
       }
+      this.orcaTime++;
+
     }.bind(this), 1000);
        
     this.interval = setInterval(function () {
@@ -43,14 +45,16 @@ var Game = {
    
     this.drawAll(); 
     this.moveAll();
-    var fishBeforeOrcaComes = 20
-    var fishBeforeOrcaLeaves = 30
-    var drawOrcaUntilThisScore = 40
-     if(this.score >= fishBeforeOrcaComes && this.score < drawOrcaUntilThisScore){
+    // var fishBeforeOrcaComes = 20
+    // var fishBeforeOrcaLeaves = 30
+    // var drawOrcaUntilThisScore = 40
+    //  if(this.score >= fishBeforeOrcaComes && this.score < drawOrcaUntilThisScore){
+      if (this.orcaTime > 10){
        this.orca.draw();
        this.musicSound.pause();
        this.orcaSound.play();
-       if (this.score >= fishBeforeOrcaLeaves){
+      //  if (this.score >= fishBeforeOrcaLeaves){
+      if (this.orcaTime > 20){
        this.orca.moveStraight();
        } else { this.orca.moveFollow(this.player)}
      };  
@@ -77,6 +81,14 @@ var Game = {
     this.musicSound.pause();
     this.gameOverSound.play();
     this.drawGameOverTitle();
+  },
+  drawYouWin: function (){
+      this.orcaSound.pause();
+      this.stop();
+      this.musicSound.play();
+      var textLength= 410;
+      this.ctx.font = '70px Arial';
+      this.ctx.fillText('You win!!! - Fish: '+this.score, this.canvas.width/2-textLength, this.canvas.height/2);
   },
 
   drawGameOverTitle: function () {
@@ -162,6 +174,7 @@ var Game = {
     this.background = new DrawBackground(this);
     this.player = new Player(this);
     this.orca = new Orca (this)
+    this.orcaTime = 0;
     this.framesCounter = 0;
     this.enemiesLeft = [];
     this.enemiesRight = [];
